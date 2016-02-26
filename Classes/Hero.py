@@ -3,6 +3,8 @@ class Hero:
         self.x = None
         self.y = None
         self.image = 'H'
+        self.Hit_Points = 15
+        self.Mana_Points = 10
         self.key = False
         self.field = field
         self.find_pos()
