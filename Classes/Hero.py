@@ -3,7 +3,7 @@ class Hero:
         self.x = None
         self.y = None
         self.image = 'H'
-        self.key = True
+        self.key = False
         self.field = field
         self.find_pos()
 
@@ -36,8 +36,8 @@ class Hero:
             if self.look_up():
                 self.y -= 1
         elif key == 's':
-            if self.look_up():
-                self.y -= 1
+            if self.look_down():
+                self.y += 1
 
         if self.x >= len(self.field[0]):
             self.x = 0
@@ -45,32 +45,40 @@ class Hero:
             self.x = len(self.field[0]) - 1
 
     def look_left(self):
-        if self.field[self.y][self.x - 1] in '#':
+        if self.field[self.y][self.x - 1] == '#' or self.field[self.y][self.x - 1] == '|' and not self.key:
             return False
-        elif self.field[self.y][self.x - 1] == '|' and self.key:
+        elif self.field[self.y][self.x - 1] == 'f':
+            self.key = True
             return True
-        elif self.field[self.y][self.x - 1] == '|' and not self.key:
-            return False
         else:
             return True
 
     def look_right(self):
-        if self.field[self.y][self.x + 1] == '#':
-            False
+        if self.field[self.y][self.x + 1] == '#' or self.field[self.y][self.x + 1] == '|' and not self.key:
+            return False
+        elif self.field[self.y][self.x + 1] == 'f':
+            self.key = True
+            return True
         else:
-            True
+            return True
 
     def look_up(self):
-        if self.field[self.y - 1][self.x] == '#':
-            self.y += 0
+        if self.field[self.y - 1][self.x] == '#' or self.field[self.y - 1][self.x] == '|' and not self.key:
+            return False
+        elif self.field[self.y - 1][self.x] == 'f':
+            self.key = True
+            return True
         else:
-            self.y -= 1
+            return True
 
     def look_down(self):
-        if self.field[self.y + 1][self.x] == '#':
-            self.y -= 0
+        if self.field[self.y + 1][self.x] == '#' or self.field[self.y + 1][self.x] == '|' and not self.key:
+            return False
+        elif self.field[self.y+1][self.x] == 'f':
+            self.key = True
+            return True
         else:
-            self.y += 1
+            return True
 
     def update(self):
         self.field[self.y][self.x] = self.image
