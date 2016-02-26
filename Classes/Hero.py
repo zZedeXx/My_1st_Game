@@ -51,6 +51,7 @@ class Hero:
             return False
         elif self.field[self.y][self.x - 1] == 'f':
             self.key = True
+            print('You pick up The Key')
             return True
         else:
             return True
@@ -60,6 +61,7 @@ class Hero:
             return False
         elif self.field[self.y][self.x + 1] == 'f':
             self.key = True
+            print('You pick up The Key')
             return True
         else:
             return True
@@ -69,6 +71,7 @@ class Hero:
             return False
         elif self.field[self.y - 1][self.x] == 'f':
             self.key = True
+            print('You pick up The Key')
             return True
         else:
             return True
@@ -78,6 +81,7 @@ class Hero:
             return False
         elif self.field[self.y+1][self.x] == 'f':
             self.key = True
+            print('You pick up The Key')
             return True
         else:
             return True
