@@ -3,8 +3,10 @@ class Hero:
         self.x = None
         self.y = None
         self.image = 'H'
-        self.Hit_Points = 15
-        self.Mana_Points = 10
+        self.level = 99  # 10 HP per level
+        self.Hit_Points = 1340
+        self.strength = 50  # 1STrength = 5 HP
+        self.damage = 100
         self.key = False
         self.field = field
         self.find_pos()
@@ -51,7 +53,6 @@ class Hero:
             return False
         elif self.field[self.y][self.x - 1] == 'f':
             self.key = True
-            print('You pick up The Key')
             return True
         else:
             return True
@@ -61,7 +62,6 @@ class Hero:
             return False
         elif self.field[self.y][self.x + 1] == 'f':
             self.key = True
-            print('You pick up The Key')
             return True
         else:
             return True
@@ -71,7 +71,6 @@ class Hero:
             return False
         elif self.field[self.y - 1][self.x] == 'f':
             self.key = True
-            print('You pick up The Key')
             return True
         else:
             return True
@@ -81,7 +80,6 @@ class Hero:
             return False
         elif self.field[self.y+1][self.x] == 'f':
             self.key = True
-            print('You pick up The Key')
             return True
         else:
             return True
