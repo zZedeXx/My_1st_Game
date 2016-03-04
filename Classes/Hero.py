@@ -1,14 +1,13 @@
 class Hero:
-    def __init__(self, field):
+    def __init__(self, field, status_bar):
         self.x = None
         self.y = None
         self.image = 'H'
-        self.level = 99  # 10 HP per level
-        self.Hit_Points = 1340
-        self.strength = 50  # 1STrength = 5 HP
+        self.Hit_Points = 100
         self.damage = 100
         self.key = False
         self.field = field
+        self.status_bar = status_bar
         self.find_pos()
 
     def find_pos(self):
@@ -26,6 +25,10 @@ class Hero:
         else:
             self.x = i
             self.y = j
+
+    def HP(self):
+        self.status_bar.insert([self.y == 1][self.x == 1], self.Hit_Points)
+        return self.status_bar
 
     def events(self, key):
         self.field[self.y][self.x] = '.'
@@ -78,7 +81,7 @@ class Hero:
     def look_down(self):
         if self.field[self.y + 1][self.x] == '#' or self.field[self.y + 1][self.x] == '|' and not self.key:
             return False
-        elif self.field[self.y+1][self.x] == 'f':
+        elif self.field[self.y + 1][self.x] == 'f':
             self.key = True
             return True
         else:
