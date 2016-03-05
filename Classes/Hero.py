@@ -3,7 +3,7 @@ class Hero:
         self.x = None
         self.y = None
         self.image = 'H'
-        self.Hit_Points = 100
+        self.Hit_Points = 10
         self.damage = 100
         self.key = False
         self.field = field
@@ -26,9 +26,6 @@ class Hero:
             self.x = i
             self.y = j
 
-    def HP(self):
-        self.status_bar.insert([self.y == 1][self.x == 1], self.Hit_Points)
-        return self.status_bar
 
     def events(self, key):
         self.field[self.y][self.x] = '.'
@@ -83,6 +80,9 @@ class Hero:
             return False
         elif self.field[self.y + 1][self.x] == 'f':
             self.key = True
+            return True
+        elif self.field[self.y + 1][self.x] == '✳':
+            self.Hit_Points -= 10
             return True
         else:
             return True

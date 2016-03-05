@@ -4,7 +4,6 @@ import sys
 import os
 from Classes.Hero import Hero
 
-
 def getchar():
     """
     Returns a single character from standard input
@@ -52,12 +51,13 @@ field = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ']
 ]
 status_bar = [
-    ['+', '=', '=', '=', '=', '=', '=', '=', '=', '+'],
-    ['|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|'],
-    ['|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|'],
-    ['|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|'],
-    ['|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|'],
-    ['+', '=', '=', '=', '=', '=', '=', '=', '=', '+']
+    ['+============+'],
+    ['| HP = {:<5} |'.format('10')],
+    ['| MP = {:<5} |'.format('10')],
+    ['| Gl = {:<5} |'.format('0')],
+    ['| EX = {:<5} |'.format('0')],
+    ['| Lv = {:<5} |'.format('1')],
+    ['+============+']
 ]
 for i in range(len(field)):
     try:
@@ -77,4 +77,6 @@ while ch != 'q':
     cls()
     render(field, status_bar)
     print('You pressed', ch)
-    print(unit.HP)
+    if unit.Hit_Points == 0:
+        print('You die!!!')
+        ch = 'q'
