@@ -2,3 +2,4 @@ H = Hero
 f = Key
 | = Door
 ✳ = Trap (-10 HP)
+⬜ = Exit/

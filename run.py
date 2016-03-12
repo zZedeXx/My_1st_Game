@@ -2,7 +2,7 @@ import tty
 import termios
 import sys
 import os
-from Classes.Hero import Hero
+from Classes.Hero import Hero, Logs
 
 def getchar():
     """
@@ -26,8 +26,8 @@ def cls():
 
 
 def render(field, status_bar):
-    for line_f, line_inv in zip(field, status_bar):
-        print(" ".join(line_f + [' '] + line_inv))
+    for line_f, line_stat in zip(field, status_bar):
+        print(" ".join(line_f + ['   '] + line_stat))
     print("Press 'q' to Exit")
     print("'a' - move left")
     print("'d' - move right")
@@ -39,8 +39,8 @@ def render(field, status_bar):
 field = [
     ['#', '#', '#', '#', '#', '#', '#', '#', ' ', '#', '#', '#', '#', '#'],
     ['#', '⬜', '.', '.', '.', '.', '.', '#', '#', '#', '.', '.', '.', '#'],
-    ['#', 'H', '.', '.', '.', '.', '.', '.', '|', '.', '.', '.', '.', '#'],
-    ['#', '.', '.', '.', '.', '#', '#', '#', '#', '#', '.', '.', '.', '#'],
+    ['#', 'H', '⬜', 'B', '.', '.', '.', '.', '|', '.', '.', '.', '.', '#'],
+    ['#', '⬜', '.', '.', '.', '#', '#', '#', '#', '#', '.', '.', '.', '#'],
     ['#', '.', '.', '.', '.', '#', 'f', '#', ' ', '#', '#', '#', '#', '#'],
     ['#', '.', '.', '.', '.', '#', '.', '#', ' ', '#', '.', '.', '.', '#'],
     ['#', '#', '#', '.', '#', '#', '.', '#', '#', '#', '.', '.', '.', '#'],
@@ -52,11 +52,12 @@ field = [
 ]
 status_bar = [
     ['+============+'],
-    ['| HP = {:<5} |'.format('10')],
-    ['| MP = {:<5} |'.format('10')],
-    ['| Gl = {:<5} |'.format('0')],
-    ['| EX = {:<5} |'.format('0')],
-    ['| Lv = {:<5} |'.format('1')],
+    ['| HP = {:<6}|'],
+    ['| MP = {:<6}|'],
+    ['| Gl = {:<6}|'],
+    ['| EX = {:<6}|'],
+    ['| Lv = {:<6}|'],
+    ['| Key= {:<6}|'],
     ['+============+']
 ]
 for i in range(len(field)):
@@ -65,11 +66,13 @@ for i in range(len(field)):
     except IndexError:
         status_bar.append([])
 # Инициализация
-unit = Hero(field, status_bar)
+logs = Logs()
+unit = Hero(field, status_bar, logs)
 cls()
 render(field, status_bar)
 
 ch = ''
+
 while ch != 'q':
     ch = getchar()
     unit.events(ch)
@@ -77,6 +80,9 @@ while ch != 'q':
     cls()
     render(field, status_bar)
     print('You pressed', ch)
-    if unit.Hit_Points == 0:
+    print(unit.key)
+    if unit.Hit_Points == 0 or unit.Hit_Points < 0:
         print('You die!!!')
         ch = 'q'
+    logs.render()
+
