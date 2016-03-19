@@ -36,7 +36,8 @@ def render(field, status_bar):
 
 
 # Локация
-field = [
+fields = {
+'1': [
     ['#', '#', '#', '#', '#', '#', '#', '#', ' ', '#', '#', '#', '#', '#'],
     ['⬜', 'H', '.', '.', '.', '.', '.', '#', '#', '#', '.', '.', '.', '#'],
     ['#', '.', '.', '.', '.', '.', '.', '.', '|', '.', '.', '.', '.', '#'],
@@ -49,36 +50,46 @@ field = [
     ['#', '.', '.', '.', '.', '.', '.', '#', '.', '#', '.', '.', '.', '#'],
     ['#', '.', '.', '.', '.', '.', '.', '#', '.', '#', '#', '#', '#', '#'],
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ']
-]
-field2 = [
+],
+'2': [
     ['#', '#', '#', '#', '#', '#', '#', '#'],
-    ['⬜', 'H', '.', '✳', '✳', '✳', '.', '#'],
-    ['#', '.', '.', '.', '.', '✳', '.', '#'],
+    ['#', 'H', '.', '✳', '✳', '✳', '.', '#'],
+    ['⬜', '.', '.', '.', '.', '✳', '.', '#'],
     ['#', '.', '.', '.', '.', '✳', '.', '#'],
     ['#', '.', '.', '.', '.', '✳', '.', '#'],
     ['#', '#', '#', '#', '#', '#', '#', '#']
 ]
+}
 status_bar = [
-    ['+============+'],
-    ['| HP = {:<6}|'],
-    ['| MP = {:<6}|'],
-    ['| Gl = {:<6}|'],
-    ['| EX = {:<6}|'],
-    ['| Lv = {:<6}|'],
-    ['| Key= {:<6}|'],
-    ['+============+']
+    '+============+',
+    '| HP = {:<6}|',
+    '| MP = {:<6}|',
+    '| Gl = {:<6}|',
+    '| EX = {:<6}|',
+    '| Lv = {:<6}|',
+    '| Key= {:<6}|',
+    '+============+'
 ]
-for i in range(len(field)):
+for i in range(len(fields['1'])):
     try:
         status_bar[i]
     except IndexError:
-        status_bar.append([])
+        status_bar.append([' '])
 # Инициализация
 logs = Logs()
-unit = Hero(field, field2, status_bar, logs)
+unit = Hero(fields, status_bar, logs)
+
+
+def check(fields):
+        if unit.location == 0:
+            field = fields['1']
+        elif unit.location == 1:
+            field = fields['2']
+        return field
+
 status_bar = unit.status_bar
 cls()
-render(field, status_bar)
+render(check(fields), status_bar)
 
 ch = ''
 
@@ -87,7 +98,7 @@ while ch != 'q':
     unit.events(ch)
     unit.update()
     cls()
-    render(field, status_bar)
+    render(check(fields), status_bar)
     print('You pressed', ch)
     print(unit.key)
     if unit.Hit_Points == 0 or unit.Hit_Points < 0:
