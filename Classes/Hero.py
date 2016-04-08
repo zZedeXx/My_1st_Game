@@ -1,6 +1,7 @@
 # inter_obj = {'✳':
 #
 # }
+from Classes.Exit import Exit
 import copy
 
 
@@ -29,23 +30,24 @@ class Hero:
         self.EXP = 0
         self.level = 0
         self.key = 0
-        self.field = fields['1']
+        self.field = fields[0]
+        self.find_pos()
         self.location = 0
         self.status_bar = copy.deepcopy(status_bar)
         self.template_status_bar = status_bar
-        self.find_pos()
         self.logs = logs
+        self.tile = None
         self.update()
 
     def draw_status(self):
         # self.Hit_Points += 10
         # self.logs.add_message(self.Hit_Points)
-        self.status_bar[1] = self.template_status_bar[1].format(self.Hit_Points)
-        self.status_bar[2] = self.template_status_bar[2].format(self.Mana_Points)
-        self.status_bar[3] = self.template_status_bar[3].format(self.Gold)
-        self.status_bar[4] = self.template_status_bar[4].format(self.EXP)
-        self.status_bar[5] = self.template_status_bar[5].format(self.level)
-        self.status_bar[6] = self.template_status_bar[6].format(self.key)
+        self.status_bar[1][0] = self.template_status_bar[1][0].format(self.Hit_Points)
+        self.status_bar[2][0] = self.template_status_bar[2][0].format(self.Mana_Points)
+        self.status_bar[3][0] = self.template_status_bar[3][0].format(self.Gold)
+        self.status_bar[4][0] = self.template_status_bar[4][0].format(self.EXP)
+        self.status_bar[5][0] = self.template_status_bar[5][0].format(self.level)
+        self.status_bar[6][0] = self.template_status_bar[6][0].format(self.key)
 
     def collide_objects(self):
         if self.field[self.y][self.x] == "✳":
@@ -66,6 +68,21 @@ class Hero:
                 break
             except ValueError:
                 j += 1
+        if i == -1:
+            raise AttributeError("Hero not found")
+        else:
+            self.x = i
+            self.y = j
+
+    def find_lvl_pos(self):
+        j = 0
+        i = -1
+        for line in self.field:
+            try:
+                i = line.index('⬜')
+                break
+            except ValueError:
+                j += 1
 
         if i == -1:
             raise AttributeError("Hero not found")
@@ -74,7 +91,7 @@ class Hero:
             self.y = j
 
     def events(self, key):
-        self.field[self.y][self.x] = '.'
+        self.field[self.y][self.x] = self.tile
         if key == 'a':
             if self.look_left():
                 self.x -= 1
@@ -90,10 +107,15 @@ class Hero:
 
     def get_field(self):
         if self.location == 0:
-            self.field = self.f['2']
+            self.field = self.f[1]
             self.location += 1
+            self.find_lvl_pos()
+            self.x -= 1
         elif self.location == 1:
-            self.field = self.f['1']
+            self.field = self.f[0]
+            self.location -= 1
+            self.find_lvl_pos()
+            self.x += 1
 
     def look_left(self):
         """
@@ -133,5 +155,8 @@ class Hero:
 
     def update(self):
         self.collide_objects()
+        if self.tile == self.image:
+            self.tile = self.field[self.y][self.x] = ' '
+        self.tile = self.field[self.y][self.x]
         self.field[self.y][self.x] = self.image
         self.draw_status()
