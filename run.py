@@ -1,7 +1,4 @@
-import tty
-import termios
-import sys
-import os
+import tty, termios, sys, os
 from Classes.Hero import Hero, Logs
 from Data.Levels import fields
 

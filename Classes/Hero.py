@@ -1,9 +1,7 @@
 # inter_obj = {'✳':
 #
 # }
-from Classes.Exit import Exit
 import copy
-
 
 class Logs:
     def __init__(self):
@@ -54,10 +52,15 @@ class Hero:
             self.Hit_Points -= 10
         elif self.field[self.y][self.x] == 'f':
             self.key += 1
+            self.tile = ' '
         elif self.field[self.y][self.x] == '|':
             self.key -= 1
+            self.tile = self.field[self.y][self.x]
         elif self.field[self.y][self.x] == '⬜':
             self.get_field()
+            self.tile = self.field[self.y][self.x]
+        else:
+            self.tile = self.field[self.y][self.x]
 
     def find_pos(self):
         j = 0
@@ -110,12 +113,10 @@ class Hero:
             self.field = self.f[1]
             self.location += 1
             self.find_lvl_pos()
-            self.x -= 1
         elif self.location == 1:
             self.field = self.f[0]
             self.location -= 1
             self.find_lvl_pos()
-            self.x += 1
 
     def look_left(self):
         """
@@ -155,8 +156,5 @@ class Hero:
 
     def update(self):
         self.collide_objects()
-        if self.tile == self.image:
-            self.tile = self.field[self.y][self.x] = ' '
-        self.tile = self.field[self.y][self.x]
         self.field[self.y][self.x] = self.image
         self.draw_status()
