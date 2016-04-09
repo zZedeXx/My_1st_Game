@@ -2,25 +2,11 @@
 #
 # }
 import copy
+from Classes.Main_Unit import *
 
-class Logs:
-    def __init__(self):
-        self.logs = []
-
-    def add_message(self, message):
-        if message not in self.logs:
-            self.logs.append(message)
-
-    def render(self):
-        for line in self.logs:
-            print(line)
-
-
-class Hero:
-    def __init__(self, fields, status_bar, logs):
-        self.f = fields
-        self.x = None
-        self.y = None
+class Hero(Main_Unit):
+    def __init__(self, fields, status_bar):
+        Main_Unit.__init__(self, fields)
         self.image = 'H'
         self.Hit_Points = 100
         self.Mana_Points = 100
@@ -33,8 +19,6 @@ class Hero:
         self.location = 0
         self.status_bar = copy.deepcopy(status_bar)
         self.template_status_bar = status_bar
-        self.logs = logs
-        self.tile = None
         self.update()
 
     def draw_status(self):
@@ -50,48 +34,19 @@ class Hero:
     def collide_objects(self):
         if self.field[self.y][self.x] == "✳":
             self.Hit_Points -= 10
+        elif self.field[self.y][self.x] == self.image:
+            self.tile = ' '
         elif self.field[self.y][self.x] == 'f':
             self.key += 1
             self.tile = ' '
         elif self.field[self.y][self.x] == '|':
             self.key -= 1
-            self.tile = self.field[self.y][self.x]
+            self.tile = ' '
         elif self.field[self.y][self.x] == '⬜':
             self.get_field()
             self.tile = self.field[self.y][self.x]
         else:
             self.tile = self.field[self.y][self.x]
-
-    def find_pos(self):
-        j = 0
-        i = -1
-        for line in self.field:
-            try:
-                i = line.index(self.image)
-                break
-            except ValueError:
-                j += 1
-        if i == -1:
-            raise AttributeError("Hero not found")
-        else:
-            self.x = i
-            self.y = j
-
-    def find_lvl_pos(self):
-        j = 0
-        i = -1
-        for line in self.field:
-            try:
-                i = line.index('⬜')
-                break
-            except ValueError:
-                j += 1
-
-        if i == -1:
-            raise AttributeError("Hero not found")
-        else:
-            self.x = i
-            self.y = j
 
     def events(self, key):
         self.field[self.y][self.x] = self.tile
@@ -117,42 +72,6 @@ class Hero:
             self.field = self.f[0]
             self.location -= 1
             self.find_lvl_pos()
-
-    def look_left(self):
-        """
-        Check wall or door left
-        """
-        if self.field[self.y][self.x - 1] == '#' or self.field[self.y][self.x - 1] == '|' and self.key == 0:
-            return False
-        else:
-            return True
-
-    def look_right(self):
-        """
-        Check wall or door right
-        """
-        if self.field[self.y][self.x + 1] == '#' or self.field[self.y][self.x + 1] == '|' and self.key == 0:
-            return False
-        else:
-            return True
-
-    def look_up(self):
-        """
-        Check wall or door up
-        """
-        if self.field[self.y - 1][self.x] == '#' or self.field[self.y - 1][self.x] == '|' and self.key == 0:
-            return False
-        else:
-            return True
-
-    def look_down(self):
-        """
-        Check wall or door down
-        """
-        if self.field[self.y + 1][self.x] == '#' or self.field[self.y + 1][self.x] == '|' and self.key == 0:
-            return False
-        else:
-            return True
 
     def update(self):
         self.collide_objects()

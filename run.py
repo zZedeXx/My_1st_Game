@@ -1,6 +1,8 @@
 import tty, termios, sys, os
-from Classes.Hero import Hero, Logs
+from Classes.Enemy import Enemy
+from Classes.Hero import Hero
 from Data.Levels import fields
+
 
 def getchar():
     """
@@ -61,9 +63,8 @@ def cont(field):
             except IndexError:
                 status_bar.append([' '])
 # Инициализация
-logs = Logs()
-unit = Hero(fields, status_bar, logs)
-
+unit = Hero(fields, status_bar)
+en = Enemy(fields)
 
 def check(fields):
         if unit.location == 0:
@@ -83,6 +84,7 @@ while ch != 'q':
     ch = getchar()
     unit.events(ch)
     unit.update()
+    en.update()
     cls()
     cont(check(fields))
     cont(fields)
@@ -92,5 +94,4 @@ while ch != 'q':
     if unit.Hit_Points == 0 or unit.Hit_Points < 0:
         print('You die!!!')
         ch = 'q'
-    logs.render()
 
