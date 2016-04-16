@@ -38,14 +38,14 @@ def render(field, status_bar):
 # Локация
 
 status_bar = [
-    ['+============+'],
-    ['| HP = {:<6}|'],
-    ['| MP = {:<6}|'],
-    ['| Gl = {:<6}|'],
-    ['| EX = {:<6}|'],
-    ['| Lv = {:<6}|'],
-    ['| Key= {:<6}|'],
-    ['+============+']
+    ['╔════════════╗'],
+    ['║ HP = {:<6}║'],
+    ['║ MP = {:<6}║'],
+    ['║ Gl = {:<6}║'],
+    ['║ EX = {:<6}║'],
+    ['║ Lv = {:<6}║'],
+    ['║ Key= {:<6}║'],
+    ['╚════════════╝']
 ]
 
 
@@ -62,9 +62,13 @@ def cont(field):
                 status_bar[i]
             except IndexError:
                 status_bar.append([' '])
+
 # Инициализация
+
+
 unit = Hero(fields, status_bar)
 en = Enemy(fields)
+
 
 def check(fields):
         if unit.location == 0:
@@ -84,6 +88,7 @@ while ch != 'q':
     ch = getchar()
     unit.events(ch)
     unit.update()
+    en.AI()
     en.update()
     cls()
     cont(check(fields))
@@ -94,4 +99,5 @@ while ch != 'q':
     if unit.Hit_Points == 0 or unit.Hit_Points < 0:
         print('You die!!!')
         ch = 'q'
-
+    elif en.Hit_Points == 0 or en.Hit_Points < 0:
+        en.alive = False

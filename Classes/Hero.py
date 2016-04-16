@@ -1,7 +1,5 @@
-# inter_obj = {'✳':
-#
-# }
 import copy
+from Data import Objects
 from Classes.Main_Unit import *
 
 class Hero(Main_Unit):
@@ -22,8 +20,6 @@ class Hero(Main_Unit):
         self.update()
 
     def draw_status(self):
-        # self.Hit_Points += 10
-        # self.logs.add_message(self.Hit_Points)
         self.status_bar[1][0] = self.template_status_bar[1][0].format(self.Hit_Points)
         self.status_bar[2][0] = self.template_status_bar[2][0].format(self.Mana_Points)
         self.status_bar[3][0] = self.template_status_bar[3][0].format(self.Gold)
@@ -31,49 +27,45 @@ class Hero(Main_Unit):
         self.status_bar[5][0] = self.template_status_bar[5][0].format(self.level)
         self.status_bar[6][0] = self.template_status_bar[6][0].format(self.key)
 
-    def collide_objects(self):
-        if self.field[self.y][self.x] == "✳":
-            self.Hit_Points -= 10
-        elif self.field[self.y][self.x] == self.image:
-            self.tile = ' '
-        elif self.field[self.y][self.x] == 'f':
-            self.key += 1
-            self.tile = ' '
-        elif self.field[self.y][self.x] == '|':
-            self.key -= 1
-            self.tile = ' '
-        elif self.field[self.y][self.x] == '⬜':
-            self.get_field()
-            self.tile = self.field[self.y][self.x]
-        else:
-            self.tile = self.field[self.y][self.x]
-
     def events(self, key):
         self.field[self.y][self.x] = self.tile
         if key == 'a':
-            if self.look_left():
-                self.x -= 1
+            dir = LEFT
         elif key == 'd':
-            if self.look_right():
-                self.x += 1
+            dir = RIGHT
         elif key == 'w':
-            if self.look_up():
-                self.y -= 1
+            dir = UP
         elif key == 's':
-            if self.look_down():
-                self.y += 1
+            dir = DOWN
+        else:
+            self.field[self.y][self.x] = self.image
+            return
 
-    def get_field(self):
-        if self.location == 0:
-            self.field = self.f[1]
-            self.location += 1
-            self.find_lvl_pos()
-        elif self.location == 1:
-            self.field = self.f[0]
-            self.location -= 1
-            self.find_lvl_pos()
+        if self.check_inter(dir):
+            self.do_interact(dir)
+        elif self.check(dir):
+            self.Move(dir)
+
+    def check_inter(self, dir):
+        point_x, point_y = self.directions[dir]()
+        if self.field[point_y][point_x] in Objects.INTERACTIVE_OBJECTS:
+            return True
+        else:
+            return False
+
+    def do_interact(self, dir):
+        point_x, point_y = self.directions[dir]()
+        for obj in Objects.GAME_OBJECTS:
+            if obj.get("char") == self.field[point_y][point_x]:
+                obj["do"](self, point_x, point_y)
+
+    def check(self, dir):
+        point_x, point_y = self.directions[dir]()
+        if self.field[point_y][point_x] in Objects.IMPASSIBLE_OBJECTS:
+            return False
+        else:
+            return True
 
     def update(self):
-        self.collide_objects()
         self.field[self.y][self.x] = self.image
         self.draw_status()
