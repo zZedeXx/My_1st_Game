@@ -30,4 +30,6 @@ fields = [
 ]
 for level_num in range(len(fields)):
     fields[level_num] = [list(line) for line in fields[level_num]]
-print(fields[0])
+
+if __name__ == "__main__":
+    print(fields[0])
