@@ -2,6 +2,7 @@ def hit(hero, ob_x, ob_y):
     hero.Hit_Points -= 10
     hero.update()
 
+
 def get_key(hero, ob_x, ob_y):
     hero.key += 1
     hero.field[ob_y][ob_x] = ' '

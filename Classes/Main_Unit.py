@@ -3,12 +3,13 @@ RIGHT = 2
 UP = 3
 DOWN = 4
 from Data import Objects
+from Data.Levels import fields
+
 
 class Main_Unit:
     def __init__(self, fields):
         self.x = None
         self.y = None
-        self.f = fields
         self.tile = ' '
         self.field = fields[0]
         self.directions = {LEFT: self.get_pos((-1, 0)),
@@ -48,11 +49,11 @@ class Main_Unit:
 
     def get_field(self):
         if self.location == 0:
-            self.field = self.f[1]
+            self.field = fields[1]
             self.location += 1
             self.find_lvl_pos()
         elif self.location == 1:
-            self.field = self.f[0]
+            self.field = fields[0]
             self.location -= 1
             self.find_lvl_pos()
 

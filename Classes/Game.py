@@ -8,19 +8,19 @@ class Game:
     def __init__(self):
         self.status_bar = [
             ['╔═══════════╗'],
-            ['║ HP = {:<6}║'],
-            ['║ MP = {:<6}║'],
-            ['║ Gl = {:<6}║'],
-            ['║ EX = {:<6}║'],
-            ['║ Lv = {:<6}║'],
-            ['║ Key= {:<6}║'],
+            ['║ HP = {:<5}║'],
+            ['║ MP = {:<5}║'],
+            ['║ Gl = {:<5}║'],
+            ['║ EX = {:<5}║'],
+            ['║ Lv = {:<5}║'],
+            ['║ Key= {:<5}║'],
             ['╚═══════════╝']
         ]
         self.unit = Hero(fields, self.status_bar)
-        # TODO: переименовать в enemy
-        self.en = Enemy(fields)
+        # TODO: переименовать в enemy(complete)
+        self.enemy = Enemy(fields)
+        self.status_bar = self.unit.status_bar
         self.cls()
-        self.render(self.check(fields), self.status_bar )
 
     def cont(self, field):
         """
@@ -81,18 +81,16 @@ class Game:
             ch = self.getchar()
             self.unit.events(ch)
             self.unit.update()
-            self.en.AI()
-            self.en.update()
-
-            # self.cont(fields)
+            self.enemy.AI()
+            self.enemy.update()
             self.render(self.check(fields), self.status_bar)
             print('You pressed', ascii(ch))
             print(self.unit.key)
             if self.unit.Hit_Points == 0 or self.unit.Hit_Points < 0:
                 print('You die!!!')
                 ch = 'q'
-            elif self.en.Hit_Points == 0 or self.en.Hit_Points < 0:
-                self.en.alive = False
+            elif self.enemy.Hit_Points == 0 or self.enemy.Hit_Points < 0:
+                self.enemy.alive = False
 
 if __name__ == "__main__":
     game = Game()

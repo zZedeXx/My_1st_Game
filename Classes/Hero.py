@@ -1,5 +1,4 @@
 import copy
-from Data import Objects
 from Classes.Main_Unit import *
 
 class Hero(Main_Unit):
@@ -29,13 +28,13 @@ class Hero(Main_Unit):
 
     def events(self, key):
         self.field[self.y][self.x] = self.tile
-        if key == 'a':
+        if key == 'a' or key == "D":
             dir = LEFT
-        elif key == 'd':
+        elif key == 'd' or key == "C":
             dir = RIGHT
-        elif key == 'w':
+        elif key == 'w' or key == "A":
             dir = UP
-        elif key == 's':
+        elif key == 's' or key == "B":
             dir = DOWN
         else:
             self.field[self.y][self.x] = self.image
@@ -56,7 +55,7 @@ class Hero(Main_Unit):
     def do_interact(self, dir):
         point_x, point_y = self.directions[dir]()
         for obj in Objects.GAME_OBJECTS:
-            if obj.get("char") == self.field[point_y][point_x]:
+            if obj["char"] == self.field[point_y][point_x]:
                 obj["do"](self, point_x, point_y)
 
     def check(self, dir):
