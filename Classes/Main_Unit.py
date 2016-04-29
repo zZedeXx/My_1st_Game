@@ -57,6 +57,30 @@ class Main_Unit:
             self.location -= 1
             self.find_lvl_pos()
 
+    def check_inter(self, dir):
+        point_x, point_y = self.directions[dir]()
+        if self.field[point_y][point_x] in Objects.INTERACTIVE_OBJECTS:
+            return True
+        else:
+            return False
+
+    def do_interact(self, dir):
+        point_x, point_y = self.directions[dir]()
+        for obj in Objects.GAME_OBJECTS:
+            try:
+                if obj.get("char") == self.field[point_y][point_x]:
+                    obj["do"](self, point_x, point_y)
+            except IndexError:
+                self.find_lvl_pos()
+                self.tile = '⬜'
+
+    def check(self, dir):
+        point_x, point_y = self.directions[dir]()
+        if self.field[point_y][point_x] in Objects.IMPASSIBLE_OBJECTS:
+            return False
+        else:
+            return True
+
     def Move(self, dir):
         point_x, point_y = self.directions[dir]()
         self.field[self.y][self.x] = self.tile

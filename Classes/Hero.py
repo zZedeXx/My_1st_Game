@@ -49,30 +49,6 @@ class Hero(Main_Unit):
         elif self.check(dir):
             self.Move(dir)
 
-    def check_inter(self, dir):
-        point_x, point_y = self.directions[dir]()
-        if self.field[point_y][point_x] in Objects.INTERACTIVE_OBJECTS:
-            return True
-        else:
-            return False
-
-    def do_interact(self, dir):
-        point_x, point_y = self.directions[dir]()
-        for obj in Objects.GAME_OBJECTS:
-            try:
-                if obj.get("char") == self.field[point_y][point_x]:
-                    obj["do"](self, point_x, point_y)
-            except IndexError:
-                self.find_lvl_pos()
-                self.tile = '⬜'
-
-    def check(self, dir):
-        point_x, point_y = self.directions[dir]()
-        if self.field[point_y][point_x] in Objects.IMPASSIBLE_OBJECTS:
-            return False
-        else:
-            return True
-
     def update(self):
         self.field[self.y][self.x] = self.image
         self.draw_status()

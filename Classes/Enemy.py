@@ -1,5 +1,5 @@
 from Classes.Main_Unit import *
-import random
+from Data.colors import *
 
 
 class Enemy(Main_Unit):
@@ -8,13 +8,15 @@ class Enemy(Main_Unit):
         self.image = 'O'
         self.location = 0
         self.Hit_Points = 10
-        self.alive = True
         self.find_pos()
         self.update()
 
-    def AI(self):
-        if self.alive:
+    def AI(self, dir=RIGHT):
+        if self.Hit_Points != 0 or self.Hit_Points > 0:
             self.field[self.y][self.x] = self.tile
-            #self.Move(LEFT)
+            if self.check_inter(dir):
+                self.do_interact(dir)
+            elif self.check(dir):
+                self.Move(dir)
         else:
-            self.field[self.y][self.x] = ' '
+            self.field.pop([self.y][self.x])

@@ -1,6 +1,6 @@
 RED = lambda s: "\033[1;31m{}\033[1;39m".format(s)
 GREEN = lambda s: "\033[1;32m{}\033[1;39m".format(s)
-YELLOW_FOREGROUND = lambda s: "\033[0;33m{}\033[1;39m".format(s)
+YELLOW_FOREGROUND = lambda s: "\033[1;33m{}\033[1;39m".format(s)
 BLUE = lambda s: "\033[1;34m{}\033[1;39m".format(s)
 BLACK = lambda s: "\033[1;30m{}\033[1;39m".format(s)
 WHITE = lambda s: "\033[1;97m{}\033[1;39m".format(s)

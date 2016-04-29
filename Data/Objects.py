@@ -28,6 +28,7 @@ def add_gold(hero, ob_x, ob_y):
     hero.field[ob_y][ob_x] = ' '
 
 GAME_OBJECTS = [
+    {"label": "Enemy", "char": "O", "icon": RED('O'), "passable": True, "interactive": False, "do": None},
     {"label": "Hero", "char": "H", "icon": LIGHT_CYAN('Ω'), "passable": True, "interactive": False, "do": None},
     {"label": "Wall", "char": "#", "icon": DARK_GRAY('▓'), "passable": False, "interactive": False, "do": None},
     {"label": "Door", "char": "|", "icon": YELLOW_FOREGROUND('☗'), "passable": False, "interactive": True, "do": open_door},

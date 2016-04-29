@@ -4,21 +4,12 @@ from Classes.Hero import Hero
 from Data.Levels import fields
 from Data import Objects
 from Data.colors import *
+from Data.status_bar import status_bar
 
 
 class Game:
     def __init__(self):
-        self.status_bar = [
-            ['╔═══════════╗'],
-            ['║ HP = {:<5}║'],
-            ['║ MP = {:<5}║'],
-            ['║ Gl = {:<5}║'],
-            ['║ EX = {:<5}║'],
-            ['║ Lv = {:<5}║'],
-            ['║ Key= {:<5}║'],
-            ['╚═══════════╝']
-        ]
-        self.unit = Hero(fields, self.status_bar)
+        self.unit = Hero(fields, status_bar)
         # TODO: переименовать в enemy(complete)
         self.enemy = Enemy(fields)
         self.status_bar = self.unit.status_bar
@@ -33,13 +24,14 @@ class Game:
                 try:
                     field[j]
                 except IndexError:
-                    field.append(['{:^15}'.format(' ')])
+                    l = len(self.check(field))
+                    field.append([l*' '])
         elif len(field) > len(self.status_bar):
             for i in range(len(field)):
                 try:
                     self.status_bar[i]
                 except IndexError:
-                    self.status_bar.append([' '])
+                    self.status_bar.append([''])
 
     def getchar(self):
         """
@@ -70,14 +62,14 @@ class Game:
         self.cls()
         self.cont(self.check(fields))
         for line_f, line_stat in zip(field, status_bar):
-            print(" ".join(line_f + ['{:^30}'.format(' ')] + line_stat))
-        for line in field:
             render_line = ''
-            for char in line:
+            for char in line_f:
                 render_line += Objects.ICONS[char] if Objects.ICONS.get(char) else char
+            for s_char in line_stat:
+                render_line += s_char
             print(BG_BLACK(render_line))
         print("Press 'q' to Exit")
-        print("'a' - move left")
+        print(self.unit.key_left, " - move left")
         print("'d' - move right")
         print("'w' - move up")
         print("'s' - move down")

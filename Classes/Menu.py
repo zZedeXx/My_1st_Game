@@ -1,8 +1,12 @@
 import tty, termios, sys, os
+from Classes.Hero import Hero
+from Data.Levels import fields
+from Data.status_bar import status_bar
 
 
 class Menu:
     def __init__(self):
+        self.unit = Hero(fields, status_bar)
         self.menu = [
              {"left": " ", "right": " ", "name": "Start", "lp": "{:<2}".format(' ')},
              {"left": " ", "right": " ", "name": "Options", "lp": ""},
@@ -13,6 +17,14 @@ class Menu:
         self.selected_line = "Start"
         self.i = 0
         self.start = 0
+
+    def options(self):
+        #print('conf input')
+        #self.unit.key_left = input('key left :')
+        #self.unit.key_right = input('key right :')
+        #self.unit.key_up = input('key up :')
+        #self.unit.key_down = input('key down :')
+        pass
 
     def events(self, key):
         if key == "w" or key == "A":
@@ -42,6 +54,7 @@ class Menu:
             self.start += 1
             return True
         elif self.selected_line == "Options":
+            self.options()
             return False
         elif self.selected_line == "Exit":
             return True
