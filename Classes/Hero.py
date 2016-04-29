@@ -4,6 +4,10 @@ from Classes.Main_Unit import *
 class Hero(Main_Unit):
     def __init__(self, fields, status_bar):
         Main_Unit.__init__(self, fields)
+        self.key_up = 'w'
+        self.key_down = 's'
+        self.key_left = 'a'
+        self.key_right = 'd'
         self.image = 'H'
         self.Hit_Points = 100
         self.Mana_Points = 100
@@ -28,13 +32,13 @@ class Hero(Main_Unit):
 
     def events(self, key):
         self.field[self.y][self.x] = self.tile
-        if key == 'a' or key == "D":
+        if key == self.key_left or key == "D":
             dir = LEFT
-        elif key == 'd' or key == "C":
+        elif key == self.key_right or key == "C":
             dir = RIGHT
-        elif key == 'w' or key == "A":
+        elif key == self.key_up or key == "A":
             dir = UP
-        elif key == 's' or key == "B":
+        elif key == self.key_down or key == "B":
             dir = DOWN
         else:
             self.field[self.y][self.x] = self.image
@@ -55,8 +59,12 @@ class Hero(Main_Unit):
     def do_interact(self, dir):
         point_x, point_y = self.directions[dir]()
         for obj in Objects.GAME_OBJECTS:
-            if obj["char"] == self.field[point_y][point_x]:
-                obj["do"](self, point_x, point_y)
+            try:
+                if obj.get("char") == self.field[point_y][point_x]:
+                    obj["do"](self, point_x, point_y)
+            except IndexError:
+                self.find_lvl_pos()
+                self.tile = '⬜'
 
     def check(self, dir):
         point_x, point_y = self.directions[dir]()

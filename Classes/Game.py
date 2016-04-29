@@ -2,6 +2,8 @@ import tty, termios, sys, os
 from Classes.Enemy import Enemy
 from Classes.Hero import Hero
 from Data.Levels import fields
+from Data import Objects
+from Data.colors import *
 
 
 class Game:
@@ -60,7 +62,7 @@ class Game:
 
     def check(self, fields):
         """
-
+        Опредиляет какой уровень отрисововать
         """
         return fields[self.unit.location]
 
@@ -69,6 +71,11 @@ class Game:
         self.cont(self.check(fields))
         for line_f, line_stat in zip(field, status_bar):
             print(" ".join(line_f + ['{:^30}'.format(' ')] + line_stat))
+        for line in field:
+            render_line = ''
+            for char in line:
+                render_line += Objects.ICONS[char] if Objects.ICONS.get(char) else char
+            print(BG_BLACK(render_line))
         print("Press 'q' to Exit")
         print("'a' - move left")
         print("'d' - move right")
@@ -85,7 +92,7 @@ class Game:
             self.enemy.update()
             self.render(self.check(fields), self.status_bar)
             print('You pressed', ascii(ch))
-            print(self.unit.key)
+            print(self.unit.location)
             if self.unit.Hit_Points == 0 or self.unit.Hit_Points < 0:
                 print('You die!!!')
                 ch = 'q'
