@@ -1,5 +1,6 @@
 import copy
 from Classes.Main_Unit import *
+from Data.colors import *
 
 class Hero(Main_Unit):
     def __init__(self, fields, status_bar):
@@ -40,6 +41,8 @@ class Hero(Main_Unit):
             dir = UP
         elif key == self.key_down or key == "B":
             dir = DOWN
+        elif key == 'i':
+            return False
         else:
             self.field[self.y][self.x] = self.image
             return

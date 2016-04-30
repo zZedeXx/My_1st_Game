@@ -11,7 +11,7 @@ while True:
     if menu.selected_line != "Exit":
         if menu.start > 0:
             menu.start -= 1
-            game.render(game.check(fields), game.status_bar)
+            game.render(game.check(fields), game.status_bar, game.inv.inventory)
             game.run()
             menu.render()
             menu.run()

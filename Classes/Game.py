@@ -1,6 +1,7 @@
 import tty, termios, sys, os
 from Classes.Enemy import Enemy
 from Classes.Hero import Hero
+from Data.inventory import Invent
 from Data.Levels import fields
 from Data import Objects
 from Data.colors import *
@@ -10,8 +11,9 @@ from Data.status_bar import status_bar
 class Game:
     def __init__(self):
         self.unit = Hero(fields, status_bar)
-        # TODO: переименовать в enemy(complete)
+        self.inv = Invent()
         self.enemy = Enemy(fields)
+        self.invent = self.inv.inventory
         self.status_bar = self.unit.status_bar
         self.cls()
 
@@ -22,16 +24,18 @@ class Game:
         if len(field) < len(self.status_bar):
             for j in range(len(self.status_bar)):
                 try:
-                    field[j]
+                    field[j], self.invent[j]
                 except IndexError:
                     l = len(self.check(field))
                     field.append([l*' '])
-        elif len(field) > len(self.status_bar):
+                    self.invent.append([''])
+        elif len(field) > len(self.status_bar) and len(field) > len(self.invent):
             for i in range(len(field)):
                 try:
-                    self.status_bar[i]
+                    self.invent[i], self.status_bar[i]
                 except IndexError:
                     self.status_bar.append([''])
+                    self.invent.append([''])
 
     def getchar(self):
         """
@@ -58,15 +62,17 @@ class Game:
         """
         return fields[self.unit.location]
 
-    def render(self, field, status_bar):
+    def render(self, field, status_bar, inv):
         self.cls()
         self.cont(self.check(fields))
-        for line_f, line_stat in zip(field, status_bar):
+        for line_f, line_stat, line_inv in zip(field, status_bar, inv):
             render_line = ''
             for char in line_f:
                 render_line += Objects.ICONS[char] if Objects.ICONS.get(char) else char
             for s_char in line_stat:
-                render_line += s_char
+                render_line += LIGHT_GRAY(s_char)
+            for inv_char in line_inv:
+                render_line +=  LIGHT_GRAY(inv_char)
             print(BG_BLACK(render_line))
         print("Press 'q' to Exit")
         print(self.unit.key_left, " - move left")
@@ -82,9 +88,9 @@ class Game:
             self.unit.update()
             self.enemy.AI()
             self.enemy.update()
-            self.render(self.check(fields), self.status_bar)
+            self.render(self.check(fields), self.status_bar, self.inv.inventory)
             print('You pressed', ascii(ch))
-            print(self.unit.location)
+            #print(self.check(fields), self.status_bar, self.inv.inventory)
             if self.unit.Hit_Points == 0 or self.unit.Hit_Points < 0:
                 print('You die!!!')
                 ch = 'q'
