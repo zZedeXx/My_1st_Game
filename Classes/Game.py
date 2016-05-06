@@ -28,7 +28,6 @@ class Game:
                 except IndexError:
                     l = len(self.check(field))
                     field.append([l*' '])
-                    self.invent.append([''])
         elif len(field) > len(self.status_bar) and len(field) > len(self.invent):
             for i in range(len(field)):
                 try:
@@ -62,7 +61,7 @@ class Game:
         """
         return fields[self.unit.location]
 
-    def render(self, field, status_bar, inv):
+    def render(self, ch, field, status_bar, inv):
         self.cls()
         self.cont(self.check(fields))
         for line_f, line_stat, line_inv in zip(field, status_bar, inv):
@@ -71,8 +70,9 @@ class Game:
                 render_line += Objects.ICONS[char] if Objects.ICONS.get(char) else char
             for s_char in line_stat:
                 render_line += LIGHT_GRAY(s_char)
-            for inv_char in line_inv:
-                render_line +=  LIGHT_GRAY(inv_char)
+            if ch == "i":
+                for inv_char in line_inv:
+                    render_line += LIGHT_GRAY(inv_char)
             print(BG_BLACK(render_line))
         print("Press 'q' to Exit")
         print(self.unit.key_left, " - move left")
@@ -88,7 +88,7 @@ class Game:
             self.unit.update()
             self.enemy.AI()
             self.enemy.update()
-            self.render(self.check(fields), self.status_bar, self.inv.inventory)
+            self.render(ch, self.check(fields), self.status_bar, self.inv.inventory)
             print('You pressed', ascii(ch))
             #print(self.check(fields), self.status_bar, self.inv.inventory)
             if self.unit.Hit_Points == 0 or self.unit.Hit_Points < 0:
