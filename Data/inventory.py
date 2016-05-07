@@ -2,11 +2,14 @@ from Data.items import *
 
 
 class Invent:
-    def __init__(self):
+    def __init__(self, hero):
+        self.hero = hero
         self.weapon = WEAPONS[0]
-        self.armor = 'shirt'
+        self.armor = ARMOR[0]
         self.inventory = [
-            ['Equiped weapon = {:<11}'.format(self.weapon['label'])],
-            ['Equiped  armor = {:<11}'.format(self.armor)],
-            ['Overall   dmg  = {:<11}'.format()]
+            ['Equipped weapon = {:<11}'.format(self.weapon['label'])],
+            ['Equipped  armor = {:<11}'.format(self.armor['label'])],
+            ['Overall  damage = {:<11}'.format(self.weapon['dmg'])],
+            #['Keys = {:<22}'.format(self.hero.key)],
+            #['Gold = {:<22}'.format(self.hero.Gold)]
         ]

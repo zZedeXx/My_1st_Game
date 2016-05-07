@@ -11,7 +11,7 @@ from Data.status_bar import status_bar
 class Game:
     def __init__(self):
         self.unit = Hero(fields, status_bar)
-        self.inv = Invent()
+        self.inv = Invent(self.unit)
         self.enemy = Enemy(fields)
         self.invent = self.inv.inventory
         self.status_bar = self.unit.status_bar

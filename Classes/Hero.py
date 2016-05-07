@@ -1,10 +1,11 @@
 import copy
 from Classes.Main_Unit import *
-from Data.colors import *
+from Data.inventory import Invent
 
 class Hero(Main_Unit):
     def __init__(self, fields, status_bar):
         Main_Unit.__init__(self, fields)
+        self.inv = Invent(self)
         self.key_up = 'w'
         self.key_down = 's'
         self.key_left = 'a'
@@ -26,10 +27,8 @@ class Hero(Main_Unit):
     def draw_status(self):
         self.status_bar[1][0] = self.template_status_bar[1][0].format(self.Hit_Points)
         self.status_bar[2][0] = self.template_status_bar[2][0].format(self.Mana_Points)
-        self.status_bar[3][0] = self.template_status_bar[3][0].format(self.Gold)
-        self.status_bar[4][0] = self.template_status_bar[4][0].format(self.EXP)
-        self.status_bar[5][0] = self.template_status_bar[5][0].format(self.level)
-        self.status_bar[6][0] = self.template_status_bar[6][0].format(self.key)
+        self.status_bar[3][0] = self.template_status_bar[3][0].format(self.EXP)
+        self.status_bar[4][0] = self.template_status_bar[4][0].format(self.level)
 
     def events(self, key):
         self.field[self.y][self.x] = self.tile

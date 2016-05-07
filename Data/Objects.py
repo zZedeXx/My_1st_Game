@@ -1,4 +1,6 @@
 from Data.colors import *
+from Data.items import *
+
 
 def hit(hero, ob_x, ob_y):
     hero.Hit_Points -= 10
@@ -27,6 +29,11 @@ def add_gold(hero, ob_x, ob_y):
     hero.Gold += 5
     hero.field[ob_y][ob_x] = ' '
 
+
+def buy(hero, ob_x, ob_y):
+    hero.gold -= 20
+    hero.inv.weapon = WEAPONS[3]
+
 GAME_OBJECTS = [
     {"label": "Enemy", "char": "O", "icon": RED('O'), "passable": True, "interactive": False, "do": None},
     {"label": "Hero", "char": "H", "icon": LIGHT_CYAN('Ω'), "passable": True, "interactive": False, "do": None},
@@ -35,7 +42,8 @@ GAME_OBJECTS = [
     {"label": "Key", "char": "f", "icon": LIGHT_YELLOW("⚷"), "passable": True, "interactive": True, "do": get_key},
     {"label": "coin", "char": "c", "icon": LIGHT_YELLOW("➄"), "passable": True, "interactive": True, "do": add_gold},
     {"label": "Exit", "char": "⬜", "icon": LIGHT_GRAY("∩"), "passable": True, "interactive": True, "do": change_lvl},
-    {"label": "Trap", "char": "✳", "icon": WHITE("✳"), "passable": True, "interactive": True, "do": hit}
+    {"label": "Trap", "char": "✳", "icon": WHITE("✳"), "passable": True, "interactive": True, "do": hit},
+    {"label": "Shop", "char": "s", "icon": GREEN("M"), "passable": False, "interactive": True, "do": buy}
 ]
 
 IMPASSIBLE_OBJECTS = [obj["char"]for obj in GAME_OBJECTS if not obj["passable"]]
