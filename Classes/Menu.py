@@ -1,16 +1,12 @@
 import tty, termios, sys, os
-#from Classes.Hero import Hero
-#from Data.Levels import fields
-#from Data.status_bar import status_bar
 
 
 class Menu:
     def __init__(self):
-        #self.unit = Hero(fields, status_bar)
         self.menu = [
-             {"left": " ", "right": " ", "name": "Start", "lp": "{:<2}".format(' ')},
-             {"left": " ", "right": " ", "name": "Options", "lp": ""},
-             {"left": " ", "right": " ", "name": "Exit", "lp": "{:<3}".format(' ')},
+            {"left": " ", "right": " ", "name": "Start", "lp": "{:<12}".format(' ')},
+            {"left": " ", "right": " ", "name": "Options", "lp": "{:<10}".format(' ')},
+            {"left": " ", "right": " ", "name": "Exit", "lp": "{:<13}".format(' ')},
         ]
         self.line = {"left": ">", "right": "<", "name": "Start", "lp": "  "}
         self.template_line = "|{line[left]}| {line[name]}{line[lp]} |{line[right]}|"

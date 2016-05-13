@@ -1,4 +1,5 @@
 import copy
+from Classes.Store import *
 from Classes.battle import *
 from Classes.Main_Unit import *
 from Data.inventory import Invent
@@ -16,6 +17,7 @@ class Hero(Main_Unit):
         self.Hit_Points = 100
         self.Mana_Points = 100
         self.Gold = 0
+        self.sh = Shop(self.Gold)
         self.EXP = 0
         self.level = 0
         self.key = 0
@@ -31,6 +33,7 @@ class Hero(Main_Unit):
         self.status_bar[2][0] = self.template_status_bar[2][0].format(self.Mana_Points)
         self.status_bar[3][0] = self.template_status_bar[3][0].format(self.EXP)
         self.status_bar[4][0] = self.template_status_bar[4][0].format(self.level)
+        self.status_bar[5][0] = self.template_status_bar[5][0].format(self.Gold)
 
     def events(self, key):
         self.field[self.y][self.x] = self.tile

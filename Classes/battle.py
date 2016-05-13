@@ -19,6 +19,46 @@ class Battle(Menu):
         elif self.selected_line == "Run":
             return True
 
+    def events(self, key):
+        if key == "w" or key == "A":
+            self.i -= 2
+            try:
+                self.selected_line = self.menu[self.i]['name']
+            except IndexError:
+                self.selected_line = self.selected_line
+                self.i += 2
+            self.selecting()
+            return False
+        elif key == "s" or key == "B":
+            self.i += 2
+            try:
+                self.selected_line = self.menu[self.i]['name']
+            except IndexError:
+                self.selected_line = self.selected_line
+                self.i -= 2
+            self.selecting()
+            return False
+        elif key == "d" or key == "":
+            self.i += 1
+            try:
+                self.selected_line = self.menu[self.i]['name']
+            except IndexError:
+                self.selected_line = self.selected_line
+                self.i -= 1
+            self.selecting()
+            return False
+        elif key == "a" or key == "B":
+            self.i -= 1
+            try:
+                self.selected_line = self.menu[self.i]['name']
+            except IndexError:
+                self.selected_line = self.selected_line
+                self.i += 1
+            self.selecting()
+            return False
+        elif key == "\r":
+            return self.select()
+
     def render(self):
         i = 0
         lin = ''

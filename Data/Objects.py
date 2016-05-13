@@ -31,8 +31,8 @@ def add_gold(hero, ob_x, ob_y):
 
 
 def buy(hero, ob_x, ob_y):
-    hero.gold -= 20
-    hero.inv.weapon = WEAPONS[3]
+    hero.sh.render()
+    hero.sh.run()
 
 
 def beat(hero, ob_x, ob_y):

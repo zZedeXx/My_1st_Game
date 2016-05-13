@@ -90,7 +90,6 @@ class Game:
             self.enemy.update()
             self.render(ch, self.check(fields), self.status_bar, self.inv.inventory)
             print('You pressed', ascii(ch))
-            #print(self.check(fields), self.status_bar, self.inv.inventory)
             if self.unit.Hit_Points == 0 or self.unit.Hit_Points < 0:
                 print('You die!!!')
                 ch = 'q'

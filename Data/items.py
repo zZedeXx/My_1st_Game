@@ -1,12 +1,12 @@
 
 
 WEAPONS = [
-    {"label": "Fists", "icon": '', "dmg": 1},
-    {"label": "Stick", "icon": '', "dmg": 5},
-    {"label": "Club", "icon": '', "dmg": 10},
-    {"label": "Axe", "icon": '', "dmg": 20},
-    {"label": "sword", "icon": "", "dmg": 30},
-    {"label": "Relic Sword", "icon": "", "dmg": 100},
+    {"label": "Fists", "icon": '', "price": '0', "dmg": 1},
+    {"label": "Stick", "icon": '', "price": '10', "dmg": 5},
+    {"label": "Club", "icon": '', "price": '15', "dmg": 10},
+    {"label": "Axe", "icon": '', "price": '25', "dmg": 20},
+    {"label": "sword", "icon": "", "price": '30', "dmg": 30},
+    {"label": "Relic Sword", "icon": "", "price": '60', "dmg": 100},
 ]
 
 ARMOR = [
