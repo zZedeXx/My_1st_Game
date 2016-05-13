@@ -72,3 +72,4 @@ class Battle(Menu):
             lin += self.template_line.format(line=line)
             i += 1
         print(lin)
+
