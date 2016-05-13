@@ -34,8 +34,13 @@ def buy(hero, ob_x, ob_y):
     hero.gold -= 20
     hero.inv.weapon = WEAPONS[3]
 
+
+def beat(hero, ob_x, ob_y):
+    hero.beat.render()
+    hero.beat.run()
+
 GAME_OBJECTS = [
-    {"label": "Enemy", "char": "O", "icon": RED('O'), "passable": True, "interactive": False, "do": None},
+    {"label": "Enemy", "char": "O", "icon": RED('O'), "passable": False, "interactive": True, "do": beat},
     {"label": "Hero", "char": "H", "icon": LIGHT_CYAN('Ω'), "passable": True, "interactive": False, "do": None},
     {"label": "Wall", "char": "#", "icon": DARK_GRAY('▓'), "passable": False, "interactive": False, "do": None},
     {"label": "Door", "char": "|", "icon": YELLOW_FOREGROUND('☗'), "passable": False, "interactive": True, "do": open_door},

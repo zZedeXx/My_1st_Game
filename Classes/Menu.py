@@ -1,12 +1,12 @@
 import tty, termios, sys, os
-from Classes.Hero import Hero
-from Data.Levels import fields
-from Data.status_bar import status_bar
+#from Classes.Hero import Hero
+#from Data.Levels import fields
+#from Data.status_bar import status_bar
 
 
 class Menu:
     def __init__(self):
-        self.unit = Hero(fields, status_bar)
+        #self.unit = Hero(fields, status_bar)
         self.menu = [
              {"left": " ", "right": " ", "name": "Start", "lp": "{:<2}".format(' ')},
              {"left": " ", "right": " ", "name": "Options", "lp": ""},

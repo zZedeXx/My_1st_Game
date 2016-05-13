@@ -1,10 +1,12 @@
 import copy
+from Classes.battle import *
 from Classes.Main_Unit import *
 from Data.inventory import Invent
 
 class Hero(Main_Unit):
     def __init__(self, fields, status_bar):
         Main_Unit.__init__(self, fields)
+        self.beat = Battle()
         self.inv = Invent(self)
         self.key_up = 'w'
         self.key_down = 's'
