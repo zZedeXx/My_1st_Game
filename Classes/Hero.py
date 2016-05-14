@@ -8,7 +8,6 @@ class Hero(Main_Unit):
     def __init__(self, fields, status_bar):
         Main_Unit.__init__(self, fields)
         self.beat = Battle
-        self.inv = Invent(self)
         self.key_up = 'w'
         self.key_down = 's'
         self.key_left = 'a'
@@ -16,13 +15,13 @@ class Hero(Main_Unit):
         self.image = 'H'
         self.Hit_Points = 100
         self.Mana_Points = 100
-        self.Gold = 0
-        self.sh = Shop(self.Gold)
+        self.Gold = 50
+        self.sh = Shop(self)
         self.EXP = 0
         self.level = 0
         self.key = 0
         self.dmg = 2
-        self.over_dmg = self.dmg + self.inv.weapon['dmg']
+        self.inv = Invent(self)
         self.field = fields[0]
         self.find_pos()
         self.location = 0

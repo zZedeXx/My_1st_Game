@@ -88,6 +88,7 @@ class Game:
             self.unit.update()
             self.enemy.AI()
             self.enemy.update()
+            self.inv.draw_inv()
             self.render(ch, self.check(fields), self.status_bar, self.inv.inventory)
             print('You pressed', ascii(ch))
             if self.unit.Hit_Points == 0 or self.unit.Hit_Points < 0:
