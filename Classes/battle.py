@@ -1,9 +1,13 @@
 from Classes.Menu import *
+from Data.Arts import *
+from Data.colors import *
 
 
 class Battle(Menu):
-    def __init__(self):
+    def __init__(self, hero, enemy):
         Menu.__init__(self)
+        self.h = hero
+        self.e = enemy
         self.menu = [
             {"left": " ", "right": " ", "name": "Attack", "lp": "{:<2}".format(' ')},
             {"left": " ", "right": " ", "name": "Spells", "lp": "{:<2}".format(' ')},
@@ -59,16 +63,21 @@ class Battle(Menu):
         elif key == "\r":
             return self.select()
 
+    def r_art(self):
+        for l_art in O_art:
+            print (RED(BG_BLACK(l_art)))
+
     def render(self):
         i = 0
         lin = ''
         self.cls()
+        self.r_art()
         self.selecting()
         for line in self.menu:
             if i == 2:
                 i = 0
-                print(lin)
+                print(LIGHT_GRAY(lin))
                 lin = ''
             lin += self.template_line.format(line=line)
             i += 1
-        print(lin)
+        print(LIGHT_GRAY(lin))

@@ -1,4 +1,5 @@
 import tty, termios, sys, os
+from Data.colors import *
 
 
 class Menu:
@@ -68,7 +69,7 @@ class Menu:
         self.cls()
         self.selecting()
         for line in self.menu:
-            print(self.template_line.format(line=line))
+            print(LIGHT_GRAY(self.template_line.format(line=line)))
 
     def getchar(self):
         """

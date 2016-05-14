@@ -36,7 +36,7 @@ def buy(hero, ob_x, ob_y):
 
 
 def beat(hero, ob_x, ob_y):
-    hero.beat.render()
+    hero.beat(hero, ).render()
     hero.beat.run()
 
 GAME_OBJECTS = [
