@@ -1,17 +1,22 @@
-import tty, termios, sys, os
+import os
+import sys
+import termios
+import tty
+
 from Classes.Enemy import Enemy
 from Classes.Hero import Hero
-from Data.inventory import Invent
-from Data.Levels import fields
+from Classes.inventory import Invent
 from Data import Objects
+from Data.Levels import fields
 from Data.colors import *
+from Data.inventory import inventar
 from Data.status_bar import status_bar
 
 
 class Game:
     def __init__(self):
         self.unit = Hero(fields, status_bar)
-        self.inv = Invent(self.unit)
+        self.inv = Invent(self.unit, inventar)
         self.enemy = Enemy(fields)
         self.invent = self.inv.inventory
         self.status_bar = self.unit.status_bar
@@ -21,7 +26,7 @@ class Game:
         """
 
         """
-        if len(field) < len(self.status_bar):
+        if len(field) < len(self.status_bar) and len(self.invent) < len(self.status_bar):
             for j in range(len(self.status_bar)):
                 try:
                     field[j], self.invent[j]
@@ -86,10 +91,10 @@ class Game:
             ch = self.getchar()
             self.unit.events(ch)
             self.unit.update()
+            self.inv.draw_inv()
             self.enemy.AI()
             self.enemy.update()
-            self.inv.draw_inv()
-            self.render(ch, self.check(fields), self.status_bar, self.inv.inventory)
+            self.render(ch, self.check(fields), self.status_bar, self.invent)
             print('You pressed', ascii(ch))
             if self.unit.Hit_Points == 0 or self.unit.Hit_Points < 0:
                 print('You die!!!')

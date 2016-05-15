@@ -1,13 +1,11 @@
 import copy
-from Classes.Store import *
-from Classes.battle import *
 from Classes.Main_Unit import *
-from Data.inventory import Invent
+from Classes.Store import *
+
 
 class Hero(Main_Unit):
     def __init__(self, fields, status_bar):
         Main_Unit.__init__(self, fields)
-        self.beat = Battle
         self.key_up = 'w'
         self.key_down = 's'
         self.key_left = 'a'
@@ -16,12 +14,11 @@ class Hero(Main_Unit):
         self.Hit_Points = 100
         self.Mana_Points = 100
         self.Gold = 50
-        self.sh = Shop(self)
         self.EXP = 0
         self.level = 0
         self.key = 0
         self.dmg = 2
-        self.inv = Invent(self)
+        self.sh = Shop(self)
         self.field = fields[0]
         self.find_pos()
         self.location = 0

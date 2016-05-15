@@ -19,7 +19,8 @@ class Battle(Menu):
 
     def select(self):
         if self.selected_line == "Attack":
-            pass
+            self.e.Hit_Points -= self.h.over_dmg
+            self.h.Hit_Points -= self.e.dmg
         elif self.selected_line == "Run":
             return True
 

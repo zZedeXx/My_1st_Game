@@ -1,5 +1,6 @@
 from Data.colors import *
 from Data.items import *
+from Classes.battle import *
 
 
 def hit(hero, ob_x, ob_y):
@@ -31,12 +32,13 @@ def add_gold(hero, ob_x, ob_y):
 
 
 def buy(hero, ob_x, ob_y):
+
     hero.sh.render()
     hero.sh.run()
 
 
 def beat(hero, ob_x, ob_y):
-    hero.beat(hero, ).render()
+    Battle(hero, ).render()
     hero.beat.run()
 
 GAME_OBJECTS = [

@@ -1,12 +1,13 @@
 from Classes.Menu import *
-from Data.inventory import *
+from Classes.inventory import *
+from Data.inventory import inventar
 
 
 class Shop(Menu):
     def __init__(self, hero):
         Menu.__init__(self)
+        self.inv = Invent(hero, inventar)
         self.unit = hero
-        self.gold = hero.Gold
         self.menu = [
             {"left": " ", "right": " ", "name": WEAPONS[1]['label'], "price": WEAPONS[1]['price'], "lp": "{:<12}".format(' ')},
             {"left": " ", "right": " ", "name": WEAPONS[2]['label'], "price": WEAPONS[2]['price'], "lp": "{:<13}".format(' ')},
@@ -28,12 +29,12 @@ class Shop(Menu):
         if self.selected_line == "Exit":
             return True
         elif self.selected_line == self.d["name"]:
-            if self.gold > int(self.d["price"]) or self.gold == int(self.d["price"]):
-                self.gold -= int(self.d["price"])
-                Invent.weapon = WEAPONS[3]
-                self.unit.Gold = self.gold
-                print(self.gold)
+            if self.unit.Gold > int(self.d["price"]) or self.unit.Gold == int(self.d["price"]) and self.d["name"] != Invent.weapon['label']:
+                self.unit.Gold -= int(self.d["price"])
+                Invent.weapon = self.d
+                print (Invent.weapon)
+                print(self.unit.Gold)
             else:
-                print(self.gold)
-                print('not enouth Gold')
+                print(self.unit.Gold)
+                print('not enouth Gold or you already have it')
 
