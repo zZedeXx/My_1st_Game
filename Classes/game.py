@@ -3,8 +3,8 @@ import sys
 import termios
 import tty
 
-from Classes.Enemy import Enemy
-from Classes.Hero import Hero
+from Classes.enemy import Enemy
+from Classes.hero import Hero
 from Classes.inventory import Invent
 from Data import Objects
 from Data.Levels import fields

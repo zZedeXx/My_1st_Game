@@ -1,6 +1,6 @@
 import copy
-from Classes.Main_Unit import *
-from Classes.Store import *
+from Classes.main_Unit import *
+from Classes.store import *
 
 
 class Hero(Main_Unit):

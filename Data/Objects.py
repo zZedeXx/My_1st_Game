@@ -1,6 +1,8 @@
-from Data.colors import *
-from Data.items import *
-from Classes.battle import *
+from Classes.battle import Battle
+from Classes.enemy import Enemy
+from Data.Levels import fields
+
+en = Enemy(fields)
 
 
 def hit(hero, ob_x, ob_y):
@@ -38,8 +40,10 @@ def buy(hero, ob_x, ob_y):
 
 
 def beat(hero, ob_x, ob_y):
-    Battle(hero, ).render()
-    hero.beat.run()
+    for enemy in ENEMY_UNITS:
+        if fields[ob_y][ob_x] == enemy["char"]:
+            Battle(hero, enemy['class']).render()
+            Battle(hero, enemy['class']).run()
 
 GAME_OBJECTS = [
     {"label": "Enemy", "char": "O", "icon": RED('O'), "passable": False, "interactive": True, "do": beat},
@@ -51,6 +55,9 @@ GAME_OBJECTS = [
     {"label": "Exit", "char": "⬜", "icon": LIGHT_GRAY("∩"), "passable": True, "interactive": True, "do": change_lvl},
     {"label": "Trap", "char": "✳", "icon": WHITE("✳"), "passable": True, "interactive": True, "do": hit},
     {"label": "Shop", "char": "s", "icon": GREEN("M"), "passable": False, "interactive": True, "do": buy}
+]
+ENEMY_UNITS = [
+    {"label": "Ou", "char": "O", "icon": RED('O'), "class": en}
 ]
 
 IMPASSIBLE_OBJECTS = [obj["char"]for obj in GAME_OBJECTS if not obj["passable"]]

@@ -2,6 +2,7 @@ LEFT = 1
 RIGHT = 2
 UP = 3
 DOWN = 4
+import tty, termios, sys, os
 from Data import Objects
 from Data.Levels import fields
 

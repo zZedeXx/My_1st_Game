@@ -1,4 +1,4 @@
-from Classes.Menu import *
+from Classes.menu import *
 from Classes.inventory import *
 from Data.inventory import inventar
 

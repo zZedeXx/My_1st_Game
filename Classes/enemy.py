@@ -1,5 +1,4 @@
-from Classes.Main_Unit import *
-from Data.colors import *
+from Classes.main_Unit import *
 import random
 
 
@@ -13,7 +12,14 @@ class Enemy(Main_Unit):
         self.find_pos()
         self.update()
 
-    def AI(self, dir=LEFT):
+    def do_interact(self, dir):
+        point_x, point_y = self.directions[dir]()
+        if self.field[point_y][point_x] == '⬜':
+            self.find_lvl_pos()
+            self.tile = '⬜'
+
+    def AI(self):
+        dir = random.randint(1, 4)
         if self.Hit_Points != 0 or self.Hit_Points > 0:
             self.field[self.y][self.x] = self.tile
             if self.check_inter(dir):
@@ -21,4 +27,4 @@ class Enemy(Main_Unit):
             elif self.check(dir):
                 self.Move(dir)
         else:
-            self.field.pop([self.y][self.x])
+            self.field[self.y][self.x] = ""
