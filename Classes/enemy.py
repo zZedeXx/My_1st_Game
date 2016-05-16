@@ -10,7 +10,13 @@ class Enemy(Main_Unit):
         self.Hit_Points = 10
         self.dmg = 1
         self.find_pos()
+        self.d()
         self.update()
+
+    def d(self):
+        for d in ENEMY_UNITS:
+            if d["char"] == self.image:
+                d['class'] = d['class'](self)
 
     def do_interact(self, dir):
         point_x, point_y = self.directions[dir]()
@@ -19,7 +25,7 @@ class Enemy(Main_Unit):
             self.tile = '⬜'
 
     def AI(self):
-        dir = random.randint(1, 4)
+        dir = LEFT
         if self.Hit_Points != 0 or self.Hit_Points > 0:
             self.field[self.y][self.x] = self.tile
             if self.check_inter(dir):

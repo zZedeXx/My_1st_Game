@@ -23,6 +23,9 @@ class Menu:
         #self.unit.key_down = input('key down :')
         pass
 
+    def log(self, l):
+        print (LIGHT_GRAY(l))
+
     def events(self, key):
         if key == "w" or key == "A":
             self.i -= 1

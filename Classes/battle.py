@@ -1,4 +1,4 @@
-from Classes.Menu import *
+from Classes.menu import *
 from Data.Arts import *
 from Data.colors import *
 

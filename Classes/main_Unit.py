@@ -1,11 +1,10 @@
+from Data.Objects import *
+from Data.Levels import fields
+from Classes.battle import Battle
 LEFT = 1
 RIGHT = 2
 UP = 3
 DOWN = 4
-import tty, termios, sys, os
-from Data import Objects
-from Data.Levels import fields
-
 
 class Main_Unit:
     def __init__(self, fields):
@@ -60,24 +59,28 @@ class Main_Unit:
 
     def check_inter(self, dir):
         point_x, point_y = self.directions[dir]()
-        if self.field[point_y][point_x] in Objects.INTERACTIVE_OBJECTS:
+        if self.field[point_y][point_x] in INTERACTIVE_OBJECTS:
             return True
         else:
             return False
 
     def do_interact(self, dir):
         point_x, point_y = self.directions[dir]()
-        for obj in Objects.GAME_OBJECTS:
+        for obj in GAME_OBJECTS:
             try:
-                if obj.get("char") == self.field[point_y][point_x]:
-                    obj["do"](self, point_x, point_y)
+                if obj.get("char") == self.field[point_y][point_x] :
+                    for en_obj in ENEMY_UNITS:
+                        if en_obj.get("char") != self.field[point_y][point_x]:
+                            obj["do"](self, point_x, point_y)
+                        else:
+                            Battle(self, en_obj.get("class"))
             except IndexError:
                 self.find_lvl_pos()
                 self.tile = '⬜'
 
     def check(self, dir):
         point_x, point_y = self.directions[dir]()
-        if self.field[point_y][point_x] in Objects.IMPASSIBLE_OBJECTS:
+        if self.field[point_y][point_x] in IMPASSIBLE_OBJECTS:
             return False
         else:
             return True

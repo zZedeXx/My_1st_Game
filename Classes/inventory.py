@@ -15,6 +15,6 @@ class Invent:
         self.draw_inv()
 
     def draw_inv(self):
-        self.inventory[1][0] = self.templ_inv[1][0].format(self.weapon['label'])
-        self.inventory[2][0] = self.templ_inv[2][0].format(self.armor['label'])
+        self.inventory[1][0] = self.templ_inv[1][0].format(self.weapon['name'])
+        self.inventory[2][0] = self.templ_inv[2][0].format(self.armor['name'])
         self.inventory[3][0] = self.templ_inv[3][0].format(self.over_dmg)

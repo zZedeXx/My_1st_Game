@@ -1,8 +1,5 @@
-from Classes.battle import Battle
-from Classes.enemy import Enemy
 from Data.Levels import fields
-
-en = Enemy(fields)
+from Data.colors import *
 
 
 def hit(hero, ob_x, ob_y):
@@ -39,14 +36,8 @@ def buy(hero, ob_x, ob_y):
     hero.sh.run()
 
 
-def beat(hero, ob_x, ob_y):
-    for enemy in ENEMY_UNITS:
-        if fields[ob_y][ob_x] == enemy["char"]:
-            Battle(hero, enemy['class']).render()
-            Battle(hero, enemy['class']).run()
-
 GAME_OBJECTS = [
-    {"label": "Enemy", "char": "O", "icon": RED('O'), "passable": False, "interactive": True, "do": beat},
+    {"label": "Enemy", "char": "O", "icon": RED('O'), "passable": False, "interactive": True, "do": None},
     {"label": "Hero", "char": "H", "icon": LIGHT_CYAN('Ω'), "passable": True, "interactive": False, "do": None},
     {"label": "Wall", "char": "#", "icon": DARK_GRAY('▓'), "passable": False, "interactive": False, "do": None},
     {"label": "Door", "char": "|", "icon": YELLOW_FOREGROUND('☗'), "passable": False, "interactive": True, "do": open_door},
@@ -57,7 +48,7 @@ GAME_OBJECTS = [
     {"label": "Shop", "char": "s", "icon": GREEN("M"), "passable": False, "interactive": True, "do": buy}
 ]
 ENEMY_UNITS = [
-    {"label": "Ou", "char": "O", "icon": RED('O'), "class": en}
+    {"label": "Ou", "char": "O", "class": lambda cl: cl}
 ]
 
 IMPASSIBLE_OBJECTS = [obj["char"]for obj in GAME_OBJECTS if not obj["passable"]]

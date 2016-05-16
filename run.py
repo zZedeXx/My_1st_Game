@@ -1,5 +1,5 @@
-from Classes.Menu import Menu
-from Classes.Game import Game
+from Classes.menu import Menu
+from Classes.game import Game
 from Data.Levels import fields
 
 menu = Menu()
